@@ -1,0 +1,62 @@
+Hoy la temperatura es 25 °C 
+y mañana será 30 fahrenheit. 
+El punto de ebullición del agua es 100°C.
+El cero absoluto es -273.15K, y la temperatura ambiente es 298K.
+
+Ejemplos Válidos
+Valores en grados Celsius:
+ 25°C 
+ 25 °C
+ 25 Celsius
+ -10°C
+ 37.5 Celsius
+ 0 Celsius
+ +15 °C
+ -273.15 Celsius
+ 100.0 °C
+ 0 °C
+Valores en Kelvin:
+
+ 300K 
+ 300 Kelvin 
+ 0 kelvin 
+ 273.15K 
+ +0 K 
+ -10 Kelvin 
+ 1.0 K 
+ 100 K 
+Valores en grados Fahrenheit:
+
+ 75°F 
+ 75 °F 
+ -40°F 
+ 100.4 Fahrenheit 
+ 212 fahrenheit 
+ +32 °F 
+ 0 Fahrenheit 
+ -32.5 °F 
+
+ Ejemplos Inválidos
+ Valores en grados Celsius:
+
+ 25 (falta la unidad)
+ 25D (unidad mal escrita)
+ 25C (unidad incorrecta)
+ 25 ° C (espacio incorrecto entre símbolo ° y C)
+ Celsius 25 (unidad antes del número)
+ 37.5Celsius (sin espacio entre número y unidad)
+ abc°C (número no válido)
+ Valores en Kelvin:
+
+ 300 (falta la unidad)
+ 300 elvin (unidad incorrecta)
+ Kelvin 300 (unidad antes del número)
+ Valores en grados Fahrenheit:
+
+ 75 (falta la unidad)
+ 75Fahrnheit (unidad mal escrita)
+ 75 ° F (espacio incorrecto entre símbolo ° y F)
+ Fahrenheit 75 (unidad antes del número)
+ 100.4° Fahrenheit (símbolo incorrecto)
+ abc°F (número no válido)
+

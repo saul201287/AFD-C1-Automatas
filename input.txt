@@ -1,0 +1,4 @@
+Hoy la temperatura es 25 °C 
+y mañana será 30 fahrenheit. 
+El punto de ebullición del agua es 100°C.
+El cero absoluto es -273.15K, y la temperatura ambiente es 298K.
