@@ -1,6 +1,32 @@
-Temperatura válida,Linea
-25 °C,1
-30 fahrenheit,2
-100°C,3
--273.15K,4
-298K,4
+﻿Temperatura válida,Linea
+25 °C,2
+30 fahrenheit,3
+100°C,4
+-273.15K,5
+298K,5
+25°C,9
+25 °C,10
+25 Celsius,11
+-10°C,12
+37.5 Celsius,13
+0 Celsius,14
++15 °C,15
+-273.15 Celsius,16
+100.0 °C,17
+0 °C,18
+300K,21
+300 Kelvin,22
+0 kelvin,23
+273.15K,24
++0 K,25
+-10 Kelvin,26
+1.0 K,27
+100 K,28
+75°F,31
+75 °F,32
+-40°F,33
+100.4 Fahrenheit,34
+212 fahrenheit,35
++32 °F,36
+0 Fahrenheit,37
+-32.5 °F,38

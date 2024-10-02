@@ -1,72 +1,109 @@
 import tkinter as tk
+import customtkinter as ctk
 from tkinter import filedialog, messagebox, ttk
 from automata import AdjustedTemperatureAutomata, read_text_file, escribir_temperaturas_csv
+import os
 
-class TemperatureGUI:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Detector de Temperaturas")
-        self.root.geometry("500x400")
-        self.root.config(bg="#f0f0f0")
-        
+ctk.set_appearance_mode("System")
+ctk.set_default_color_theme("blue")
+
+class TemperatureGUI(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Detector de Temperaturas")
+        self.geometry("900x700")
+
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
+
         self.input_file = ""
         self.output_file = "output.csv"
 
+        self.create_widgets()
 
-        self.title_label = tk.Label(root, text="Detector de Temperaturas", font=("Helvetica", 16), bg="#f0f0f0", fg="#333")
-        self.title_label.pack(pady=10)
+    def create_widgets(self):
+        main_frame = ctk.CTkFrame(self)
+        main_frame.grid(row=0, column=0, padx=30, pady=30, sticky="nsew")
+        main_frame.grid_columnconfigure(0, weight=1)
+        main_frame.grid_rowconfigure(3, weight=1)
 
-        self.label = tk.Label(root, text="Selecciona un archivo de texto:", font=("Helvetica", 12), bg="#f0f0f0", fg="#555")
-        self.label.pack(pady=5)
+        header_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
+        header_frame.grid(row=0, column=0, pady=20, padx=20, sticky="ew")
+        header_frame.grid_columnconfigure(1, weight=1)
 
-        self.browse_button = tk.Button(root, text="Buscar archivo", font=("Helvetica", 12), command=self.browse_file, bg="#4CAF50", fg="white", relief="flat", padx=10, pady=5)
-        self.browse_button.pack(pady=10)
+        title_label = ctk.CTkLabel(header_frame, text="Detector de Temperaturas", font=ctk.CTkFont(size=28, weight="bold"))
+        title_label.grid(row=0, column=1, sticky="w" , padx=20)
 
-        self.process_button = tk.Button(root, text="Procesar", font=("Helvetica", 12), command=self.process_file, bg="#2196F3", fg="white", relief="flat", padx=10, pady=5)
-        self.process_button.pack(pady=10)
+        file_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
+        file_frame.grid(row=1, column=0, padx=50 , sticky="ew")
+        file_frame.grid_columnconfigure(1, weight=1)
 
-     
-        self.progress = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
-        self.progress.pack(pady=10)
+        file_button = ctk.CTkButton(file_frame, text="Seleccionar archivo en formato .txt", command=self.browse_file)
+        file_button.grid(row=0, column=0, padx=(0, 10))
 
-     
-        self.result_text = tk.Text(root, height=10, width=50, state="disabled", font=("Courier", 10), bg="#e8e8e8", fg="#333")
-        self.result_text.pack(pady=10)
+        self.file_label = ctk.CTkLabel(file_frame, text="Ningún archivo seleccionado", font=ctk.CTkFont(size=14))
+        self.file_label.grid(row=0, column=1, sticky="w")
+
+        process_button = ctk.CTkButton(file_frame, text="Procesar", command=self.process_file)
+        process_button.grid(row=0, column=2, padx=(10, 0))
+
+ 
+        self.progress = ctk.CTkProgressBar(main_frame)
+        self.progress.grid(row=2, column=0, pady=30, padx=50, sticky="ew")
+        self.progress.set(0)
+
+        results_frame = ctk.CTkFrame(main_frame)
+        results_frame.grid(row=3, column=0, pady=10, padx=30, sticky="nsew")
+        results_frame.grid_columnconfigure(0, weight=1)
+        results_frame.grid_rowconfigure(1, weight=1)
+
+        results_label = ctk.CTkLabel(results_frame, text="Resultados", font=ctk.CTkFont(size=18, weight="bold"))
+        results_label.grid(row=0, column=0, pady=(10, 5), padx=20, sticky="w")
+
+  
+        self.result_tree = ttk.Treeview(results_frame, columns=("temperatura", "linea"), show="headings")
+        self.result_tree.heading("temperatura", text="Temperatura")
+        self.result_tree.heading("linea", text="Línea")
+        self.result_tree.column("temperatura", width=150)
+        self.result_tree.column("linea", width=100)
+        self.result_tree.grid(row=1, column=0, sticky="nsew")
+
+        scrollbar = ttk.Scrollbar(results_frame, orient="vertical", command=self.result_tree.yview)
+        scrollbar.grid(row=1, column=1, sticky="ns")
+        self.result_tree.configure(yscrollcommand=scrollbar.set)
 
     def browse_file(self):
         self.input_file = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
         if self.input_file:
-            self.label.config(text=self.input_file)
+            self.file_label.configure(text=os.path.basename(self.input_file))
 
     def process_file(self):
         if not self.input_file:
             messagebox.showwarning("Advertencia", "Por favor, selecciona un archivo.")
             return
 
-        self.progress.start(10)  
-        self.root.after(100, self.run_automata)  
+        self.progress.start()
+        self.after(100, self.run_automata)
 
     def run_automata(self):
         text = read_text_file(self.input_file)
         automata = AdjustedTemperatureAutomata()
         valid_temperatures = automata.run(text)
 
-        self.result_text.config(state="normal")
-        self.result_text.delete(1.0, tk.END)
+        self.result_tree.delete(*self.result_tree.get_children())
         
         if valid_temperatures:
-            self.result_text.insert(tk.END, "Temperaturas válidas detectadas:\n")
             for temp, line_num in valid_temperatures:
-                self.result_text.insert(tk.END, f"{temp} (Línea {line_num})\n")
+                self.result_tree.insert("", "end", values=(temp, line_num))
             escribir_temperaturas_csv(valid_temperatures, self.output_file)
             messagebox.showinfo("Éxito", f"Se encontraron {len(valid_temperatures)} temperaturas válidas. Los resultados se guardaron en {self.output_file}.")
         else:
-            self.result_text.insert(tk.END, "No se encontraron temperaturas válidas.\n")
+            messagebox.showinfo("Información", "No se encontraron temperaturas válidas.")
 
-        self.result_text.config(state="disabled")
-        self.progress.stop()  
+        self.progress.stop()
+        self.progress.set(0)
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    gui = TemperatureGUI(root)
-    root.mainloop()
+    app = TemperatureGUI()
+    app.mainloop()

@@ -1,9 +1,10 @@
 import csv
 
 class AdjustedTemperatureAutomata:
+    
     def __init__(self):
         self.reset()
-
+    
     def reset(self):
         self.state = 'q0'
         self.temp_value = ""
@@ -272,7 +273,7 @@ def read_text_file(file_path):
         return file.read()
 
 def escribir_temperaturas_csv(data, output_csv):
-    with open(output_csv, 'w', newline='', encoding='utf-8') as csvfile:
+    with open(output_csv, 'w', newline='', encoding='utf-8-sig') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['Temperatura válida', 'Linea'])
         for temp, line_num in data:
