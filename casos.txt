@@ -46,11 +46,13 @@ Valores en grados Fahrenheit:
  Celsius 25 (unidad antes del número)
  37.5Celsius (sin espacio entre número y unidad)
  abc°C (número no válido)
+
  Valores en Kelvin:
 
  300 (falta la unidad)
  300 elvin (unidad incorrecta)
  Kelvin 300 (unidad antes del número)
+ 
  Valores en grados Fahrenheit:
 
  75 (falta la unidad)

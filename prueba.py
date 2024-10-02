@@ -24,11 +24,17 @@ def debug_automata(text):
     print(f"Temperaturas válidas detectadas: {valid_temperatures}")
     print(f"Número de temperaturas detectadas: {len(valid_temperatures)}")
 
-test_text = ''' 300 Kelvin
- +0 K
- -10 Kelvin
- 1.0 K
- 100 K'''
+test_text = '''  
+ 25°C 
+ 25 °C 
+ 25 Celsius 
+ -10°C 
+ 37.5 Celsius 
+ 0 Celsius 
+ +15 °C 
+ -273.15 Celsius 
+ 100.0 °C 
+ 0 °C '''
 
 debug_automata(test_text)
 
