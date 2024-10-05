@@ -1,3 +1,4 @@
+Texto de ejemplo 
 Hoy la temperatura es 25 °C 
 y mañana será 30 fahrenheit. 
 El punto de ebullición del agua es 100°C.
@@ -15,8 +16,8 @@ Valores en grados Celsius:
  -273.15 Celsius
  100.0 °C
  0 °C
-Valores en Kelvin:
 
+Valores en Kelvin:
  300K 
  300 Kelvin 
  0 kelvin 
@@ -25,8 +26,8 @@ Valores en Kelvin:
  -10 Kelvin 
  1.0 K 
  100 K 
-Valores en grados Fahrenheit:
 
+Valores en grados Fahrenheit:
  75°F 
  75 °F 
  -40°F 
@@ -36,9 +37,10 @@ Valores en grados Fahrenheit:
  0 Fahrenheit 
  -32.5 °F 
 
- Ejemplos Inválidos
- Valores en grados Celsius:
+ ---Ejemplos Inválidos
 
+
+ Valores en grados Celsius:
  25 (falta la unidad)
  25D (unidad mal escrita)
  25C (unidad incorrecta)
@@ -46,15 +48,27 @@ Valores en grados Fahrenheit:
  Celsius 25 (unidad antes del número)
  37.5Celsius (sin espacio entre número y unidad)
  abc°C (número no válido)
+<<<<<<< Updated upstream
 
  Valores en Kelvin:
+=======
+>>>>>>> Stashed changes
 
+
+
+ Valores en Kelvin:
  300 (falta la unidad)
  300 elvin (unidad incorrecta)
  Kelvin 300 (unidad antes del número)
+<<<<<<< Updated upstream
  
  Valores en grados Fahrenheit:
+=======
+>>>>>>> Stashed changes
 
+
+
+ Valores en grados Fahrenheit:
  75 (falta la unidad)
  75Fahrnheit (unidad mal escrita)
  75 ° F (espacio incorrecto entre símbolo ° y F)
