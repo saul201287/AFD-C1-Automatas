@@ -93,7 +93,6 @@ class AdjustedTemperatureAutomata:
 
         elif self.state == 'q5':
             if char == 'e':
-                print("llego a e")
                 self.unit += 'e' 
                 self.state = 'q9'  
             else:
@@ -250,7 +249,6 @@ class AdjustedTemperatureAutomata:
                 self.reset()
 
         if self.state in ['q28', 'q27'] and self.unit:
-            print("Temperatura detectada:", self.unit)
             self.current_temp = f"{self.unit}".strip()  
             return True
 
@@ -263,7 +261,8 @@ class AdjustedTemperatureAutomata:
             for i, char in enumerate(line):
                 next_char = line[i + 1] if i + 1 < len(line) else None
                 if self.process_char(char, next_char):
-                    valid_temperatures.append((self.current_temp, line_num))
+                    column = i - len(self.unit) + 1
+                    valid_temperatures.append((self.current_temp, line_num, column))
                     self.reset()
         return valid_temperatures
 
@@ -275,8 +274,12 @@ def read_text_file(file_path):
 def escribir_temperaturas_csv(data, output_csv):
     with open(output_csv, 'w', newline='', encoding='utf-8-sig') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['Temperatura válida', 'Linea'])
-        for temp, line_num in data:
-            writer.writerow([temp, line_num])
+        writer.writerow(['Temperatura válida', 'Línea', 'Columna'])
+        for temp, line_num, column in data:
+            writer.writerow([temp, line_num, column])
 
-
+# Ejemplo de uso
+texto = read_text_file('ruta_del_archivo.txt')
+automata = AdjustedTemperatureAutomata()
+resultados = automata.run(texto)
+escribir_temperaturas_csv(resultados, 'salida.csv')
