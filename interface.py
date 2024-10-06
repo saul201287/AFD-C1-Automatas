@@ -33,10 +33,10 @@ class TemperatureGUI(ctk.CTk):
         header_frame.grid_columnconfigure(1, weight=1)
 
         title_label = ctk.CTkLabel(header_frame, text="Detector de Temperaturas", font=ctk.CTkFont(size=28, weight="bold"))
-        title_label.grid(row=0, column=1, sticky="w" , padx=20)
+        title_label.grid(row=0, column=1, sticky="w", padx=20)
 
         file_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
-        file_frame.grid(row=1, column=0, padx=50 , sticky="ew")
+        file_frame.grid(row=1, column=0, padx=50, sticky="ew")
         file_frame.grid_columnconfigure(1, weight=1)
 
         file_button = ctk.CTkButton(file_frame, text="Seleccionar archivo en formato .txt", command=self.browse_file)
@@ -48,7 +48,6 @@ class TemperatureGUI(ctk.CTk):
         process_button = ctk.CTkButton(file_frame, text="Procesar", command=self.process_file)
         process_button.grid(row=0, column=2, padx=(10, 0))
 
- 
         self.progress = ctk.CTkProgressBar(main_frame)
         self.progress.grid(row=2, column=0, pady=30, padx=50, sticky="ew")
         self.progress.set(0)
@@ -61,12 +60,13 @@ class TemperatureGUI(ctk.CTk):
         results_label = ctk.CTkLabel(results_frame, text="Resultados", font=ctk.CTkFont(size=18, weight="bold"))
         results_label.grid(row=0, column=0, pady=(10, 5), padx=20, sticky="w")
 
-  
-        self.result_tree = ttk.Treeview(results_frame, columns=("temperatura", "linea"), show="headings")
+        self.result_tree = ttk.Treeview(results_frame, columns=("temperatura", "linea", "columna"), show="headings")
         self.result_tree.heading("temperatura", text="Temperatura")
         self.result_tree.heading("linea", text="Línea")
+        self.result_tree.heading("columna", text="Columna")  
         self.result_tree.column("temperatura", width=150)
         self.result_tree.column("linea", width=100)
+        self.result_tree.column("columna", width=100)  
         self.result_tree.grid(row=1, column=0, sticky="nsew")
 
         scrollbar = ttk.Scrollbar(results_frame, orient="vertical", command=self.result_tree.yview)
@@ -92,10 +92,10 @@ class TemperatureGUI(ctk.CTk):
         valid_temperatures = automata.run(text)
 
         self.result_tree.delete(*self.result_tree.get_children())
-        
+    
         if valid_temperatures:
-            for temp, line_num in valid_temperatures:
-                self.result_tree.insert("", "end", values=(temp, line_num))
+            for temp, line_num, column in valid_temperatures:  
+                self.result_tree.insert("", "end", values=(temp, line_num, column))  
             escribir_temperaturas_csv(valid_temperatures, self.output_file)
             messagebox.showinfo("Éxito", f"Se encontraron {len(valid_temperatures)} temperaturas válidas. Los resultados se guardaron en {self.output_file}.")
         else:

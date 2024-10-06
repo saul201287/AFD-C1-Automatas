@@ -278,8 +278,4 @@ def escribir_temperaturas_csv(data, output_csv):
         for temp, line_num, column in data:
             writer.writerow([temp, line_num, column])
 
-# Ejemplo de uso
-texto = read_text_file('ruta_del_archivo.txt')
-automata = AdjustedTemperatureAutomata()
-resultados = automata.run(texto)
-escribir_temperaturas_csv(resultados, 'salida.csv')
+
